@@ -5,3 +5,13 @@
   ufw:
     rule: allow
     name: mosh
+  when: ansible_os_family == "Debian" or ansible_os_family == "Ubuntu"
+
+#- name: Enable mosh firewalld rules
+#  become: yes
+#  firewalld:
+#    port: 60001-60009/udp
+#    service: mosh
+#    permanent: true
+#    state: enabled
+#  when: ansible_os_family == "RedHat"

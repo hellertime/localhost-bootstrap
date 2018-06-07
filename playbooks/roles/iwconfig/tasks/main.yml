@@ -1,0 +1,26 @@
+---
+
+- name: Disable powersave on 802.11 devices
+  become: yes
+  copy:
+    mode: 0755
+    dest: /etc/NetworkManager/dispatcher.d/02-802.11-powersave-off
+    content: |
+             IF=$1
+             STATUS=$2
+             ifaces=$(iwconfig 2>/dev/null | grep 802.11 | awk '{print $1}')
+             for iface in $ifaces; do
+                 if [ "${IF}" = "$iface" ] && [ "${STATUS}" = "up" ]; then
+                     iwconfig ${iface} power off
+                     logger "${iface}: turning off powersave mode to prevent loss of connection"
+                 fi
+             done
+  when: ansible_os_family == "RedHat"
+  register: powersave
+
+- name: Restart NetworkManager when powersave changes
+  become: yes
+  service:
+    name: NetworkManager
+    state: restarted
+  when: powersave.changed

@@ -8,6 +8,7 @@
     - mosh
     - git_global_config
     - vimrc
+    - iwconfig
   handlers:
     - name: add user to docker group
       become: yes

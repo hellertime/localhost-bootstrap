@@ -25,17 +25,17 @@ function configure_install {
     case $s in
         ubuntu)
             sudo apt-get update
-    	    ;;
+            ;;
         fedora)
-            die_unsupported $s
-    	    ;;
+	    sudo dnf check-update || true
+            ;;
         darwin)
             #/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
             die_unsuppoted $s
-    	    ;;
+            ;;
         *)
-    	    die_unsupported $s
-    	    ;;
+            die_unsupported $s
+            ;;
     esac
 }
 
@@ -46,7 +46,7 @@ function install {
             sudo apt-get install -y $@
             ;;
         fedora)
-            die_unsupported $s
+	    sudo dnf install -y $@
             ;;
         darwin)
             die_unsupported $s

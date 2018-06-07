@@ -1,0 +1,41 @@
+---
+
+- name: Upgrading all packages (Ubuntu/Debian)
+  become: yes
+  apt:
+    upgrade: dist
+  when: ansible_os_family == "Debian" or ansible_os_family == "Ubuntu"
+
+- name: Upgrading all packages (Fedora)
+  become: yes
+  yum:
+    name: '*'
+    state: latest
+  when: ansible_os_family == "RedHat"
+
+- name: "Install packages"
+  become: yes
+  package:
+    name: "{{item}}"
+    state: latest
+  with_items:
+    - git
+    - inxi
+    - python3-pip
+    - tree
+    - linux-tools-generic
+    - mosh
+    - vim
+    - keychain
+
+- name: "Install python modules"
+  pip:
+    name: "{{item}}"
+    extra_args: --user
+    executable: pip3
+    state: latest
+  with_items:
+    - dnspython
+    - requests
+    - SQLAlchemy
+    - urllib3

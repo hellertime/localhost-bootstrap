@@ -1,0 +1,15 @@
+---
+- name: Clone Vundle repo
+  git:
+    repo: https://github.com/gmarik/Vundle.vim.git
+    dest: "{{ansible_env.HOME}}/.vim/bundle/Vundle.vim"
+
+- name: Render current .vimrc
+  template:
+    src: vimrc.j2
+    dest: "{{ansible_env.HOME}}/.vimrc"
+   
+# Horrible hack to run non-interactive with positive exit
+# https://github.com/VundleVim/Vundle.vim/issues/511#issuecomment-134251209
+- name: Install plugins with Vundle
+  shell: echo | echo | vim +PluginInstall +qall &>/dev/null

@@ -1,0 +1,23 @@
+---
+
+- name: "Configure global Git user settings"
+  git_config:
+    scope: global
+    name: user.email
+    value: hellertime@gmail.com
+
+- git_config:
+    scope: global
+    name: user.name
+    value: "Chris Heller"
+
+- git_config:
+    scope: global
+    name: push.default
+    value: simple
+
+- git_config:
+    scope: global
+    name: alias.change-commits
+    value: >
+      !f() { VAR=$1; OLD=$2; NEW=$3; shift 3; git filter-branch --env-filter "if [ $`echo $VAR` = \"$OLD\" ]; then export $VAR=\"$NEW\"; fi" $@; }; f

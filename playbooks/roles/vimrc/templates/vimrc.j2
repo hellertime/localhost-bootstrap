@@ -1,0 +1,49 @@
+set nocompatible
+filetype off
+
+set rtp+=~/.vim/bundle/Vundle.vim
+
+call vundle#begin()
+
+Plugin 'gmarik/Vundle.vim'
+{% for plugin in vimrc_plugins %}
+Plugin '{{plugin}}'
+{% endfor %}
+
+call vundle#end()
+filetype plugin indent on
+
+set enc=utf-8
+
+{% if 'altercation/vim-colors-solarized' in vimrc_plugins %}
+" solarized config
+syntax enable
+set background=dark
+colorscheme solarized
+{% endif %}
+
+{% if 'lukerandall/haskellmode-vim' in vimrc_plugins %}
+" Mac OS X setup for haskell_doc.vim (http://projects.haskell.org/haskellmode-vim/)
+let g:haddock_browser = "open"
+let g:haddock_browser_callformat = "%s %s"
+{% endif %}
+
+{% if 'enomsg/vim-haskellConcealPlus' in vimrc_plugins %}
+" Conceal Haskell
+let hscoptions="Thwr"
+{% endif %}
+
+{% if 'plasticboy/vim-markdown' in vimrc_plugins %}
+" Don't fold markdown
+let g:vim_markdown_folding_disabled=1
+{% endif %}
+
+" tabs
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+
+{% if 'eagletmt/ghcmod-vim' in vimrc_plugins %}
+" Put stack installed ghc-mod on the path
+let $PATH = $PATH . ':' . expand('~/.local/bin')
+{% endif %}

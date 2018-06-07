@@ -1,0 +1,7 @@
+---
+
+- name: Enable mosh ufw rules
+  become: yes
+  ufw:
+    rule: allow
+    name: mosh

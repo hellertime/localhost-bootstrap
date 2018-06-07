@@ -1,0 +1,19 @@
+---
+
+- name: Ensure SSHD boots
+  become: yes
+  file:
+    path: /etc/ssh/sshd_not_to_be_run
+    state: absent
+
+- name: Start SSH
+  become: yes
+  service:
+    name: ssh
+    enabled: yes
+    state: started
+
+- name: Load keys from keychain if present
+  lineinfile:
+      path: "{{ansible_env.HOME}}/.bashrc"
+      line: "test -f $HOME/.keychain/$HOSTNAME-sh && . $HOME/.keychain/$HOSTNAME-sh"

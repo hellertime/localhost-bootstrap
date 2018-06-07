@@ -1,0 +1,40 @@
+---
+
+- name:
+  hosts: localhost
+  roles:
+    - sshd
+    - packages
+    - mosh
+    - git_global_config
+    - vimrc
+  handlers:
+    - name: add user to docker group
+      become: yes
+      user: 
+        name: "{{ansible_env.USER}}"
+        groups: docker
+        append: yes
+  vars:
+    vimrc_plugins:
+      - 'ervandew/supertab'
+      - 'tpope/vim-fugitive'
+      - 'tpope/vim-commentary'
+      - 'tpope/vim-sensible'
+      - 'tpope/vim-surround'
+      - 'ctrlpvim/ctrlp.vim'
+      - 'godlygeek/tabular'
+      - 'altercation/vim-colors-solarized'
+      - 'scrooloose/syntastic'
+      - 'derekwyatt/vim-scala'
+      - 'plasticboy/vim-markdown'
+      - 'Twinside/vim-hoogle'
+      # - 'lukerandall/haskellmode-vim'
+      - 'Shougo/vimproc.vim'
+      - 'eagletmt/ghcmod-vim'
+      - 'eagletmt/neco-ghc'
+      # - 'dag/vim2hs'
+      - 'enomsg/vim-haskellConcealPlus'
+      - 'rust-lang/rust.vim'
+      - 'felipec/notmuch-vim'
+

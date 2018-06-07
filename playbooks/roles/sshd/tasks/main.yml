@@ -12,6 +12,15 @@
     name: ssh
     enabled: yes
     state: started
+  when: ansible_os_family == "Debian" or ansible_os_family == "Ubuntu"
+
+- name: Start SSH
+  become: yes
+  service:
+    name: sshd
+    enabled: yes
+    state: started
+  when: ansible_os_family == "RedHat"
 
 - name: Load keys from keychain if present
   lineinfile:

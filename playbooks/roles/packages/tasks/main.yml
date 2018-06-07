@@ -8,12 +8,12 @@
 
 - name: Upgrading all packages (Fedora)
   become: yes
-  yum:
+  dnf:
     name: '*'
     state: latest
   when: ansible_os_family == "RedHat"
 
-- name: "Install packages"
+- name: "Install common packages"
   become: yes
   package:
     name: "{{item}}"
@@ -23,10 +23,27 @@
     - inxi
     - python3-pip
     - tree
-    - linux-tools-generic
     - mosh
     - vim
     - keychain
+
+- name: "Install Debian Family packages"
+  become: yes
+  package:
+    name: "{{item}}"
+    state: latest
+  with_items:
+    - linux-tools-generic
+  when: ansible_os_family == "Debian" or ansible_os_family == "Ubuntu"
+
+- name: "Install RedHat Family packages"
+  become: yes
+  package:
+    name: "{{item}}"
+    state: latest
+  with_items:
+    - perf
+  when: ansible_os_family == "RedHat"
 
 - name: "Install python modules"
   pip:

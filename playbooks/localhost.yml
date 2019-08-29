@@ -27,6 +27,8 @@
       - 'godlygeek/tabular'
       - 'altercation/vim-colors-solarized'
       - 'scrooloose/syntastic'
+      - 'zchee/vim-flatbuffers'
+      # - 'dcharbon/vim-flatbuffers'
       - 'derekwyatt/vim-scala'
       - 'plasticboy/vim-markdown'
       - 'Twinside/vim-hoogle'

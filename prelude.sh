@@ -75,5 +75,7 @@ configure_install
 
 add_apt_repo ppa:ansible/ansible
 
+install curl
+curl https://sh.rustup.rs -sSf | sh -s -- -y
 install git
 install ansible

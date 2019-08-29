@@ -22,6 +22,14 @@
     - git
     - inxi
     - python3-pip
+    - python3-notebook
+    - python3-seaborn
+    - python3-lxml
+    - python3-basemap
+    - python3-scikit-image
+    - python3-scikit-learn
+    - python3-sympy
+    - mathjax
     - tree
     - mosh
     - vim
@@ -45,14 +53,10 @@
     - perf
   when: ansible_os_family == "RedHat"
 
+
 - name: "Install python modules"
   pip:
-    name: "{{item}}"
+    name: ["dnspython", "requests", "SQLAlchemy", "urllib3", "xgboost"]
     extra_args: --user
     executable: pip3
     state: latest
-  with_items:
-    - dnspython
-    - requests
-    - SQLAlchemy
-    - urllib3
